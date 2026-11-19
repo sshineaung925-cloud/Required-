@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="my">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Would You Love Me? ❤️</title>
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+    width: 100%;
+    height: 100dvh;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    font-family: Georgia, "Times New Roman", serif;
+    background:
+        radial-gradient(circle at 20% 20%, rgba(255, 192, 214, 0.55), transparent 45%),
+        radial-gradient(circle at 80% 75%, rgba(244, 180, 212, 0.5), transparent 50%),
+        linear-gradient(145deg, #f9ecec 0%, #f5dfe6 55%, #efe3ee 100%);
+    color: #2c1c24;
+}
+
+/* Soft floating hearts background */
+.bg-hearts {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 0;
+}
+
+.bg-heart {
+    position: absolute;
+    bottom: -30px;
+    font-size: 16px;
+    color: rgba(196, 78, 122, 0.28);
+    animation: floatUp linear infinite;
+}
+
+@keyframes floatUp {
+    0% {
+        transform: translateY(0) scale(0.9);
+        opacity: 0;
+    }
+    20% {
+        opacity: 1;
+    }
+    85% {
+        opacity: 0.9;
+    }
+    100% {
+        transform: translateY(-110vh) scale(1.15);
+        opacity: 0;
+    }
+}
+
+.card {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 410px;
+    min-height: 250px;
+    padding: 36px 26px 32px;
+    border-radius: 26px;
+    text-align: center;
+    background: rgba(255, 250, 252, 0.92);
+    border: 1px solid rgba(255, 255, 255, 0.85);
+    box-shadow: 0 22px 55px rgba(120, 55, 85, 0.14);
+    backdrop-filter: blur(10px);
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.eyebrow {
+    font-size: 13px;
+    font-style: italic;
+    color: #a86f86;
+    margin-bottom: 10px;
+    letter-spacing: 0.3px;
+}
+
+h1 {
+    font-size: 32px;
+    line-height: 1.2;
+    font-weight: 600;
+    color: #24151c;
+    margin-bottom: 26px;
+}
+
+.btn-row {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    min-height: 54px;
+    margin-bottom: 14px;
+}
+
+.btn {
+    border: none;
+    border-radius: 999px;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    touch-action: manipulation;
+    transition: transform 0.18s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.btn-yes {
+    padding: 12px 28px;
+    background: #b84a72;
+    color: #fff;
+    box-shadow: 0 8px 20px rgba(184, 74, 114, 0.28);
+    z-index: 3;
+}
+
+.btn-yes:hover {
+    background: #a43d63;
+    transform: translateY(-1px);
+}
+
+.btn-yes:active {
+    transform: scale(0.96);
+}
+
+.btn-no {
+    position: relative;
+    padding: 11px 22px;
+    background: #f3e4ea;
+    color: #6f4c5b;
+    border: 1px solid rgba(155, 105, 126, 0.28);
+    z-index: 4;
+}
+
+.hint {
+    font-size: 12.5px;
+    font-style: italic;
+    color: #9e7586;
+    min-height: 20px;
+}
+
+/* Accepted state */
+.accepted-box {
+    display: none;
+    animation: fadeScale 0.4s ease;
+}
+
+.accepted-box.show {
+    display: block;
+}
+
+.question-box.hide {
+    display: none;
+}
+
+.accepted-title {
+    font-size: 34px;
+    color: #24151c;
+    margin: 8px 0 10px;
+}
+
+.accepted-sub {
+    font-size: 14px;
+    line-height: 1.7;
+    color: #7c5465;
+    margin-bottom: 20px;
+}
+
+.btn-again {
+    padding: 10px 22px;
+    background: rgba(184, 74, 114, 0.12);
+    color: #9e3b60;
+    font-size: 13px;
+}
+
+@keyframes fadeScale {
+    from {
+        opacity: 0;
+        transform: scale(0.94);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+</style>
+</head>
+<body>
+
+<div class="bg-hearts" id="bgHearts"></div>
+
+<div class="card">
+    <div class="question-box" id="questionBox">
+        <p class="eyebrow" id="eyebrow">just a small question</p>
+        <h1 id="questionText">Would you love me?</h1>
+
+        <div class="btn-row" id="btnRow">
+            <button type="button" class="btn btn-yes" id="yesBtn">Yes</button>
+            <button type="button" class="btn btn-no" id="noBtn">No</button>
+        </div>
+
+        <p class="hint" id="hint">&nbsp;</p>
+    </div>
+
+    <div class="accepted-box" id="acceptedBox">
+        <p class="eyebrow">told you so</p>
+        <h2 class="accepted-title">I knew it...</h2>
+        <p class="accepted-sub">
+            some things you just don't need to ask twice.<br>
+            အရမ်းချစ်တယ် ❤️
+        </p>
+        <button type="button" class="btn btn-again" id="againBtn">ပြန်ကြည့်မယ်</button>
+    </div>
+</div>
+
+<script>
+const card = document.querySelector(".card");
+const questionBox = document.getElementById("questionBox");
+const acceptedBox = document.getElementById("acceptedBox");
+const yesBtn = document.getElementById("yesBtn");
+const noBtn = document.getElementById("noBtn");
+const hint = document.getElementById("hint");
+const againBtn = document.getElementById("againBtn");
+
+const hints = [
+    "Nice try.",
+    "Keep trying, I don't mind.",
+    "Almost had it.",
+    "Nope, not that one 😉",
+    "Yes ဘက်ကိုပဲ နှိပ်လိုက်ပါတော့ ❤️"
+];
+
+let dodgeCount = 0;
+let yesScale = 1;
+
+function moveNoButton() {
+    const cardRect = card.getBoundingClientRect();
+    const btnRect = noBtn.getBoundingClientRect();
+
+    // Switch to fixed/card-relative dodging inside viewport safely
+    const padding = 18;
+    const maxX = Math.max(padding, window.innerWidth - btnRect.width - padding);
+    const maxY = Math.max(padding, window.innerHeight - btnRect.height - padding);
+
+    const randX = padding + Math.random() * (maxX - padding);
+    const randY = padding + Math.random() * (maxY - padding);
+
+    noBtn.style.position = "fixed";
+    noBtn.style.left = randX + "px";
+    noBtn.style.top = randY + "px";
+    noBtn.style.margin = "0";
+
+    hint.textContent = hints[dodgeCount % hints.length];
+    dodgeCount++;
+
+    // Gently grow Yes button slightly so it feels extra inviting
+    yesScale = Math.min(1.22, 1 + dodgeCount * 0.03);
+    yesBtn.style.transform = `scale(${yesScale})`;
+}
+
+// Dodge on hover (desktop) and touchstart/click (mobile)
+noBtn.addEventListener("mouseenter", moveNoButton);
+noBtn.addEventListener("touchstart", (e) => {
+    e.preventDefault();
+    moveNoButton();
+}, { passive: false });
+noBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    moveNoButton();
+});
+
+yesBtn.addEventListener("click", () => {
+    noBtn.style.display = "none";
+    questionBox.classList.add("hide");
+    acceptedBox.classList.add("show");
+});
+
+againBtn.addEventListener("click", () => {
+    dodgeCount = 0;
+    yesScale = 1;
+    yesBtn.style.transform = "scale(1)";
+    hint.innerHTML = "&nbsp;";
+
+    noBtn.style.display = "inline-block";
+    noBtn.style.position = "relative";
+    noBtn.style.left = "auto";
+    noBtn.style.top = "auto";
+
+    acceptedBox.classList.remove("show");
+    questionBox.classList.remove("hide");
+});
+
+// Subtle floating hearts
+const bgHearts = document.getElementById("bgHearts");
+for (let i = 0; i < 14; i++) {
+    const span = document.createElement("span");
+    span.className = "bg-heart";
+    span.textContent = i % 2 === 0 ? "♥" : "♡";
+    span.style.left = (Math.random() * 96) + "%";
+    span.style.fontSize = (13 + Math.random() * 10) + "px";
+    span.style.animationDuration = (7 + Math.random() * 6) + "s";
+    span.style.animationDelay = (Math.random() * 6) + "s";
+    bgHearts.appendChild(span);
+}
+</script>
+</body>
+</html>
